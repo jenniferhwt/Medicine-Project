@@ -1,5 +1,7 @@
 package com.rippletec.test.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rippletec.medicine.bean.PageBean;
 import com.rippletec.medicine.dao.MedicineDao;
 import com.rippletec.medicine.dao.WestMedicineDao;
 import com.rippletec.medicine.model.Medicine;
@@ -33,7 +36,7 @@ public class WestMedicineDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testSave() throws Exception {
-	Medicine medicine = (Medicine) medicineDao.find(11);
+	Medicine medicine = medicineDao.find(11);
 	WestMedicine westMedicine = new WestMedicine(medicine, "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west", "west");
 	System.out.println(westMedicine.toString());
 	westMedicineDao.save(westMedicine);
@@ -54,9 +57,18 @@ public class WestMedicineDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testFind() throws Exception {
-	WestMedicine westMedicine = (WestMedicine) westMedicineDao.find(1);
+	WestMedicine westMedicine = westMedicineDao.find(1);
 	System.out.println(westMedicine.toString());
 	System.out.println(westMedicine.getMedicine().toString());
+    }
+
+    @Override
+    @Test
+    public void testFindByPage() throws Exception {
+	List<WestMedicine> westMedicines  = westMedicineDao.findByPage(new PageBean(0, 10));
+	for (WestMedicine westMedicine : westMedicines) {
+	    System.out.println(westMedicine.toString());
+	}
     }
 
 }

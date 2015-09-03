@@ -1,46 +1,27 @@
 package com.rippletec.medicine.dao.impl;
 
-import javax.annotation.Resource;
-
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.rippletec.medicine.dao.EnterpriseMedicineTypeDao;
-import com.rippletec.medicine.model.BaseModel;
 import com.rippletec.medicine.model.EnterpriseMedicineType;
-import com.rippletec.medicine.support.PlusHibernateSupport;
 
 /**
  * @author Liuyi
  *
  */
 @Repository(EnterpriseMedicineTypeDao.NAME)
-public class EnterpriseMedicineTypeDaoImpl extends PlusHibernateSupport
+public class EnterpriseMedicineTypeDaoImpl extends BaseDaoImpl<EnterpriseMedicineType>
 	implements EnterpriseMedicineTypeDao {
-    
-    @Resource
-    public void _setSessionFactory(SessionFactory sessionFactory) {
-	super.setSessionFactory(sessionFactory);
+
+    @Override
+    public String getClassName() {
+	return EnterpriseMedicineType.CLASS_NAME;
     }
 
     @Override
-    public Integer save(BaseModel model) {
-	return (Integer) getHibernateTemplate().save(model);
+    public Class<EnterpriseMedicineType> getPersistClass() {
+	return EnterpriseMedicineType.class;
     }
 
-    @Override
-    public void delete(Integer id) {
-	getHibernateTemplate().delete(find(id));
-    }
-
-    @Override
-    public void update(BaseModel model) {
-	getHibernateTemplate().update(model);
-    }
-
-    @Override
-    public BaseModel find(Integer id) {
-	return getHibernateTemplate().get(EnterpriseMedicineType.class, id);
-    }
-
+   
 }

@@ -1,5 +1,7 @@
 package com.rippletec.test.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rippletec.medicine.bean.PageBean;
 import com.rippletec.medicine.dao.ChineseMedicineDao;
 import com.rippletec.medicine.dao.EnterpriseDao;
 import com.rippletec.medicine.dao.EnterpriseMedicineTypeDao;
@@ -45,7 +48,7 @@ public class ChineseMedicineDaoTest implements IBaseDaoTest {
     @Test
     public void testSave() throws Exception {
 	MedicineType medicineType = new MedicineType("testmedicinesave",MedicineType.DEFAULT_PARENT_ID );
-	EnterpriseMedicineType enterpriseMedicineType = (EnterpriseMedicineType) enterpriseMedicineTypeDao.find(13);
+	EnterpriseMedicineType enterpriseMedicineType = enterpriseMedicineTypeDao.find(13);
 	Medicine medicine = new Medicine(medicineType, Medicine.CHINESE, enterpriseMedicineType, 888.0);
 	ChineseMedicine chineseMedicine = new ChineseMedicine(medicine, "saveCheinse", "content", "efficacy", "annouce", "usage", "preparations", "store", "category");
 	chineseMedicineDao.save(chineseMedicine);
@@ -65,9 +68,18 @@ public class ChineseMedicineDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testFind() throws Exception {
-	ChineseMedicine chineseMedicine = (ChineseMedicine) chineseMedicineDao.find(9);
+	ChineseMedicine chineseMedicine = chineseMedicineDao.find(9);
 	System.out.println(chineseMedicine.toString());
 	System.out.println(chineseMedicine.getMedicine().toString());
+    }
+
+    @Override
+    @Test
+    public void testFindByPage() throws Exception {
+	List<ChineseMedicine> chineseMedicines  = chineseMedicineDao.findByPage(new PageBean(0, 10));
+	for (ChineseMedicine chineseMedicine : chineseMedicines) {
+	    System.out.println(chineseMedicine.toString());
+	}
     }
 
 }

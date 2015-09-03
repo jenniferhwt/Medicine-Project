@@ -10,5 +10,5 @@ public interface IBaseDaoTest {
     
     void testFind()throws Exception;
     
-    
+    void testFindByPage()throws Exception;
 }
