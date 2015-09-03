@@ -21,10 +21,10 @@ public class PageBean {
     // 页面条目数
     public int pageSize;
 
-    public PageBean(int currentPage, int offset) {
+    public PageBean(int offset, int pageSize) {
 	super();
-	this.currentPage = currentPage;
 	this.offset = offset;
+	this.pageSize = pageSize;
     }
 
     public PageBean(int currentPage, int nextPage, int lastPage, int offset,

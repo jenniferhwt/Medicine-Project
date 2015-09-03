@@ -1,6 +1,7 @@
 package com.rippletec.test.dao;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rippletec.medicine.bean.PageBean;
 import com.rippletec.medicine.dao.MedicineTypeDao;
 import com.rippletec.medicine.model.Medicine;
 import com.rippletec.medicine.model.MedicineType;
@@ -45,7 +47,7 @@ public class MedicineTypeDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testUpdate() throws Exception {
-	MedicineType medicineType = (MedicineType) medicineTypeDao.find(6);
+	MedicineType medicineType = medicineTypeDao.find(6);
 	medicineType.setParent_type_id(3);
 	medicineTypeDao.update(medicineType);
     }
@@ -58,11 +60,20 @@ public class MedicineTypeDaoTest implements IBaseDaoTest {
     
     @Test
     public void testFind2() throws Exception {
-	MedicineType medicineType = (MedicineType) medicineTypeDao.find(15);
+	MedicineType medicineType = medicineTypeDao.find(15);
 	Iterator<Medicine> iterator = medicineType.getMedicines().iterator();
 	while (iterator.hasNext()) {
-	    Medicine medicine = (Medicine) iterator.next();
+	    Medicine medicine = iterator.next();
 	    System.out.println(medicine.getChineseOrWest().toString());
+	}
+    }
+
+    @Override
+    @Test
+    public void testFindByPage() throws Exception {
+	List<MedicineType> medicineTypes = medicineTypeDao.findByPage(new PageBean(0, 10));
+	for (MedicineType medicineType : medicineTypes) {
+	    System.out.println(medicineType.toString());
 	}
     }
 

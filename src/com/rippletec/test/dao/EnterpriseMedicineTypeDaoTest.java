@@ -1,5 +1,7 @@
 package com.rippletec.test.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rippletec.medicine.bean.PageBean;
 import com.rippletec.medicine.dao.EnterpriseDao;
 import com.rippletec.medicine.dao.EnterpriseMedicineTypeDao;
 import com.rippletec.medicine.model.Enterprise;
@@ -34,7 +37,7 @@ public class EnterpriseMedicineTypeDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testSave() throws Exception {
-	Enterprise enterprise = (Enterprise) enterpriseDao.find(1);
+	Enterprise enterprise = enterpriseDao.find(1);
 	EnterpriseMedicineType enterpriseMedicineType = new EnterpriseMedicineType("saveType", enterprise);
 	enterpriseMedicineTypeDao.save(enterpriseMedicineType);
     }
@@ -52,12 +55,21 @@ public class EnterpriseMedicineTypeDaoTest implements IBaseDaoTest {
     @Override
     @Test
     public void testFind() throws Exception {
-	EnterpriseMedicineType enterpriseMedicineType = (EnterpriseMedicineType)enterpriseMedicineTypeDao.find(13);
+	EnterpriseMedicineType enterpriseMedicineType = enterpriseMedicineTypeDao.find(13);
 //	System.out.println(enterpriseMedicineType.toString());
 //	System.out.println(enterpriseMedicineType.getEnterprise().toString());
-	Medicine medicine = (Medicine) enterpriseMedicineType.getMedicines().iterator().next();
+	Medicine medicine = enterpriseMedicineType.getMedicines().iterator().next();
 	System.out.println(medicine.getChineseOrWest().toString());
 	
+    }
+
+    @Override
+    @Test
+    public void testFindByPage() throws Exception {
+	List<EnterpriseMedicineType> enterpriseMedicineTypes = enterpriseMedicineTypeDao.findByPage(new PageBean(0, 10));
+	for (EnterpriseMedicineType enterpriseMedicineType : enterpriseMedicineTypes) {
+	    System.out.println(enterpriseMedicineType.toString());
+	}
     }
 
 }

@@ -3,6 +3,8 @@
  */
 package com.rippletec.test.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rippletec.medicine.bean.PageBean;
 import com.rippletec.medicine.dao.ChineseMedicineDao;
 import com.rippletec.medicine.dao.EnterpriseMedicineTypeDao;
 import com.rippletec.medicine.dao.MedicineDao;
@@ -47,16 +50,16 @@ public class MedicineDaoTest implements IBaseDaoTest{
 	@Override
 	@Test
 	public void testSave() throws Exception {
-	    EnterpriseMedicineType enterpriseMedicineType = (EnterpriseMedicineType) enterpriseMedicineTypeDao.find(11);
-	    MedicineType medicineType = (MedicineType) medicineTypeDao.find(15);
+	    EnterpriseMedicineType enterpriseMedicineType = enterpriseMedicineTypeDao.find(11);
+	    MedicineType medicineType = medicineTypeDao.find(15);
 	    Medicine medicine = new Medicine(medicineType, Medicine.CHINESE, enterpriseMedicineType, 888.0);
 	    medicineDao.save(medicine);
 	}
 	
 	@Test
 	public void testSave2 () throws Exception {
-	    EnterpriseMedicineType enterpriseMedicineType = (EnterpriseMedicineType) enterpriseMedicineTypeDao.find(11);
-	    MedicineType medicineType = (MedicineType) medicineTypeDao.find(15);
+	    EnterpriseMedicineType enterpriseMedicineType = enterpriseMedicineTypeDao.find(11);
+	    MedicineType medicineType = medicineTypeDao.find(15);
 	    ChineseMedicine chineseMedicine = new ChineseMedicine(null, "saveCheinse", "content", "efficacy", "annouce", "usage", "preparations", "store", "category");
 	    Medicine medicine = new Medicine(medicineType, Medicine.CHINESE, enterpriseMedicineType, 888.0);
 	    chineseMedicine.setMedicine(medicine);
@@ -91,7 +94,16 @@ public class MedicineDaoTest implements IBaseDaoTest{
 	
 	@Test
 	public void testFind2() throws Exception {
-	    System.out.println(((Medicine)medicineDao.find(1)).getMedicineDocuments().toString());
+	    System.out.println(medicineDao.find(1).getMedicineDocuments().toString());
+	}
+
+	@Override
+	@Test
+	public void testFindByPage() throws Exception {
+	    List<Medicine> medicines = medicineDao.findByPage(new PageBean(0, 10));
+	    for (Medicine medicine : medicines) {
+		System.out.println(medicine.toString());
+	    }
 	}
 	
 }

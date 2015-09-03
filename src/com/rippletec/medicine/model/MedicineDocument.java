@@ -28,6 +28,7 @@ import org.springframework.stereotype.Repository;
 @Table(name = "medicine_document")
 public class MedicineDocument extends BaseModel {
 
+    public static final String CLASS_NAME = "MedicineDocument";
     public static final String MEDICINE_ID = "medicine_id";
     private static final long serialVersionUID = 1344487290503116724L;
 

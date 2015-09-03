@@ -26,10 +26,31 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Entity
-@Table(name = "enterprise")
+@Table(name = Enterprise.TABLE_NAME)
 public class Enterprise extends BaseModel {
 
     private static final long serialVersionUID = -2404813734314317948L;
+    
+    public static final String CLASS_NAME = "Enterprise";
+    public static final String TABLE_NAME = "enterprise";
+    public static final String NAME = "name";
+    public static final String LOGO = "logo";
+    public static final String PHONE = "phone";
+    public static final String EMAIL = "email";
+    public static final String TYPE = "type";
+    
+    /**
+     * 外资
+     */
+    public static final int FOREIGN = 1;
+    /**
+     * 合资
+     */
+    public static final int JOINT = 2;    
+    /**
+     * 内资
+     */
+    public static final int DOMESTIC = 3;
 
     public Enterprise() {
     }

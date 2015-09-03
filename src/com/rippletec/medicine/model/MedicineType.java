@@ -28,6 +28,7 @@ import org.springframework.stereotype.Repository;
 @Table(name = "medicine_type")
 public class MedicineType extends BaseModel {
     
+    public static final String CLASS_NAME = "MedicineType";
     public static final String PARENT_TYPE_ID = "parent_type_id";
 
     // 最顶级分类的父类别id为-1

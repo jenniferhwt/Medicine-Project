@@ -27,7 +27,9 @@ public class ChineseMedicine extends BaseModel {
 
     private static final long serialVersionUID = -7463751072679829110L;
 
+    public static final String CLASS_NAME = "ChineseMedicine";
     public static final String MEDICINE_ID = "medicine_id";
+    
 
     public ChineseMedicine() {
     }
